@@ -18,8 +18,6 @@ const mccallSort = arr => {
 Given a string, returns only unique characters in their specified order.
 ```javascript
 function onlyUnique(sample) {
-  let unique = new Set();
-  for (let item of sample) unique.add(item);
-  return [...unique].join('')
+  return [...new Set([...sample])].join('')
 }
 ```
