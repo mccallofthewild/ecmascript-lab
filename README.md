@@ -13,6 +13,9 @@ const mccallSort = arr => {
   }
   return arr;
 }
+const mccallSort = (src, i = 0, copy = [...src], a = src[i]) => copy.splice(
+	src.filter((b,bI) => (b < a || (a == b && bI < i))).length, 1, a) 
+  && src.length == i+1 ? copy : mccallSort(src, i+1, copy)
 ```
 ### Only Unique
 Given a string, returns only unique characters in their specified order.
