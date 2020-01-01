@@ -23,7 +23,7 @@ const mccallSort = (src, i = 0, copy = [...src], a = src[i]) => copy.splice(
 ```javascript
 function mccallSort (arr, i=0) {
   const [ia, ib] = [i%arr.length, (i+1)%arr.length];
-  ia < ib && arr[ib] < arr[ia] ? [arr[ia], arr[ib]] = [arr[ib], arr[ia]] : null;
+  if(ia < ib && arr[ib] < arr[ia]) [arr[ia], arr[ib]] = [arr[ib], arr[ia]];
   return i > arr.length**2 ? arr : mccallSort(arr, i+1)
 }
 ```
