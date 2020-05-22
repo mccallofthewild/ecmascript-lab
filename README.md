@@ -1,6 +1,11 @@
 # 👩‍🔬 EcmaScript Laboratory
 <em>Experiments in JavaScript</em>
 
+### Succinct Fizzbuzz
+```javascript
+[...Array(100)].map((v, i) => console.log(`${i%3 ? '' : 'fizz'}${i%5 ? '' : 'buzz'}` || i))
+```
+
 ### [FLIP Transitions](https://aerotwist.com/blog/flip-your-animations/)
 A continuity illusion for UI elements
 ```javascript
