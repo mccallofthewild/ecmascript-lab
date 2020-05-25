@@ -1,6 +1,16 @@
 # 👩‍🔬 EcmaScript Laboratory
 <em>Experiments in JavaScript</em>
 
+### Node.js Encryption/Decryption
+```typescript
+import { Encrypt } from './Encrypt';
+
+const data = 'top secret data information';
+const password = 'password123';
+const encrypted = Encrypt.encryptText(data, password);
+const decrypted = Encrypt.decryptText(encrypted, password);
+```
+
 ### Succinct Fizzbuzz
 ```javascript
 for(let i = 100; i--;) console.log(`${i%3 ? '' : 'fizz'}${i%5 ? '' : 'buzz'}` || i)
