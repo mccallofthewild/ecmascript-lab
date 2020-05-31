@@ -66,6 +66,18 @@ function sort([...arr]) {
   return copy;
 }
 ```
+#### Recursive
+```javascript
+function sortRecursive([...arr], copy = [arr.pop()], insertIndex = arr.length) {
+  copy.splice(insertIndex, 0, arr.splice(0, 1)[0]);
+  for (const [copyIndex, copyItem] of copy.entries())
+    if (arr[0] <= copyItem) {
+      insertIndex = copyIndex;
+      break;
+    }
+  return arr.length ? sortRecursive(arr, copy, insertIndex) : copy;
+}
+```
 
 ### Succinct ES6 Bubble Sort
 ```javascript
