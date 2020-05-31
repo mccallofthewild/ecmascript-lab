@@ -47,6 +47,26 @@ const mccallSort = (src, i = 0, copy = [...src], a = src[i]) => copy.splice(
   src.filter((b,bI) => (b < a || (a == b && bI < i))).length, 1, a) 
   && src.length == i+1 ? copy : mccallSort(src, i+1, copy)
 ```
+
+### Simple Sort
+Remove one item at a time and place it before the first item it is less than or equal to in the new array.
+```javascript 
+function sort([...arr]) {
+  const copy = [arr.pop()];
+  while (arr.length) {
+    let insertIndex = arr.length;
+    for (const [copyIndex, copyItem] of copy.entries()) {
+      if (arr[0] <= copyItem) {
+        insertIndex = copyIndex;
+        break;
+      }
+    }
+    copy.splice(insertIndex, 0, arr.splice(0, 1)[0]);
+  }
+  return copy;
+}
+```
+
 ### Succinct ES6 Bubble Sort
 ```javascript
 function bubbleSort (arr, i=0) {
