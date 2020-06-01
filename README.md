@@ -67,6 +67,19 @@ function sort([...arr]) {
 }
 ```
 
+#### Recursive
+```javascript
+function sortRecursive([...arr], copy = [arr.pop()], insertIndex = arr.length) {
+  copy.splice(insertIndex, 0, arr.splice(0, 1)[0]);
+  for (const [copyIndex, copyItem] of copy.entries())
+    if (arr[0] <= copyItem) {
+      insertIndex = copyIndex;
+      break;
+    }
+  return arr.length ? sortRecursive(arr, copy, insertIndex) : copy;
+}
+```
+
 ### Dead Simple Sort
 Move the smallest item to the beginning of the unsorted items until there are no items left.
 ```javascript
@@ -85,19 +98,6 @@ function deadSimpleSort([...arr]) {
   for (let i = 0; i < arr.length; i++)
     if(arr[i] < sml[1]) sml = [i, arr[i]];
   return [...arr.splice(sml[0], 1), ...(arr.length ? deadSimpleSort(arr) : [])]
-}
-```
-
-#### Recursive
-```javascript
-function sortRecursive([...arr], copy = [arr.pop()], insertIndex = arr.length) {
-  copy.splice(insertIndex, 0, arr.splice(0, 1)[0]);
-  for (const [copyIndex, copyItem] of copy.entries())
-    if (arr[0] <= copyItem) {
-      insertIndex = copyIndex;
-      break;
-    }
-  return arr.length ? sortRecursive(arr, copy, insertIndex) : copy;
 }
 ```
 
