@@ -68,7 +68,17 @@ function sort([...arr]) {
 ```
 
 ### Dead Simple Sort
-Move the smallest item to the beginning of the array until there are no items left.
+Move the smallest item to the beginning of the unsorted items until there are no items left.
+```javascript
+function deadSimpleSort([...arr]) {
+  let start = -1;
+  while (++start < arr.length)
+    for (let i = start; i < arr.length; i++)
+      if (arr[i] < arr[start])[arr[i], arr[start]] = [arr[start], arr[i]];
+  return arr;
+}
+```
+#### Recursive
 ```javascript
 function deadSimpleSort([...arr]) {
   let sml = [null, Infinity];
