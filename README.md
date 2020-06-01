@@ -103,10 +103,9 @@ function deadSimpleSort([...arr]) {
 
 ### Succinct ES6 Bubble Sort
 ```javascript
-function bubbleSort (arr, i=0) {
-  const [ia, ib] = [i%arr.length, (i+1)%arr.length];
-  if(ia < ib && arr[ib] < arr[ia]) [arr[ia], arr[ib]] = [arr[ib], arr[ia]];
-  return i > arr.length**2 ? arr : bubbleSort(arr, i+1)
+function bubbleSort (arr, i=1, runs = 0) {
+  if(arr[i-1] > arr[i]) [arr[i-1], arr[i]] = [arr[i], arr[i-1]];
+  return runs > arr.length**2 ? arr : bubbleSort(arr, --i || arr.length - 1, ++runs);
 }
 ```
 
