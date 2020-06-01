@@ -95,9 +95,9 @@ function deadSimpleSort([...arr]) {
 #### Recursive
 ```javascript
 function deadSimpleSortRecursive([...arr], start = 0) {
-  for (let i = 0; i < arr.length; i++)
+  for (let i = start + 1; i < arr.length; i++)
     if (arr[i] < arr[start]) [arr[i], arr[start]] = [arr[start], arr[i]]
-  return ++start < arr.length ? deadSimpleSort(arr) : arr;
+  return ++start < arr.length ? deadSimpleSortRecursive(arr, start) : arr;
 }
 ```
 
