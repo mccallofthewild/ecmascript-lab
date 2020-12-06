@@ -49,7 +49,7 @@ export const gql = (...templateLiteral: Parameters<typeof String.raw>) => {
   const query = String.raw(...templateLiteral);
   let variables;
   const request = () =>
-    fetch('https://api.thegraph.com/subgraphs/name/krboktv/try-second-graph', {
+    fetch('/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
