@@ -1,6 +1,105 @@
 # 👩‍🔬 EcmaScript Laboratory
 <em>Experiments in JavaScript</em>
 
+### Invocable Promise
+```typescript 
+function createInvocablePromise<
+	PromiseReturnType,
+	FunctionType extends Function = Function
+>(
+	fn: FunctionType,
+	promiseCb: ConstructorParameters<typeof Promise>[0]
+): Promise<PromiseReturnType> & Function {
+	const promiseDescriptors = Object.getOwnPropertyDescriptors(
+		Promise.prototype
+	);
+	const promiseInstance = new Promise(promiseCb);
+	for (let thing in promiseDescriptors) {
+		promiseDescriptors[thing].value = promiseDescriptors[thing].value.bind(
+			promiseInstance
+		);
+	}
+	Object.defineProperties(fn, promiseDescriptors);
+	return (fn as unknown) as Promise<PromiseReturnType> & Function;
+}
+
+const b = createInvocablePromise<number>(
+	() => {
+		console.log('Function logging.');
+	},
+	(resolve, reject) => {
+		setTimeout(() => {
+			resolve('Resolver logging.');
+		}, 2000);
+	}
+);
+b.then(console.info);
+b();
+
+/*
+> Function logging.
+// 2 seconds later
+> Resolver logging.
+
+```
+
+### Template Literal GraphQL Client
+```typescript
+export const gql = (...templateLiteral: Parameters<typeof String.raw>) => {
+	const query = String.raw(...templateLiteral);
+	let variables;
+	const request = () =>
+		fetch('https://api.thegraph.com/subgraphs/name/krboktv/try-second-graph', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: 'application/json',
+			},
+			body: JSON.stringify({
+				query,
+				...(variables ? { variables } : {}),
+			}),
+		})
+			.then((r) => r.json())
+			.then((r) => r.data);
+	return createInvocablePromise(
+		(vars) => {
+			variables = vars;
+			return request();
+		},
+		(resolve, reject) => {
+			const timeout = setTimeout(() => {
+				if (variables) return resolve(true);
+				return resolve(request());
+			}, 0);
+		}
+	);
+};
+
+await gql`
+  {
+     books(first: 10) {
+        title
+        genre
+        author
+     }
+  }
+`;
+// OR
+await gql`
+  query Books($first: Int!) {
+    books(first: $first) {
+        title
+        genre
+        author
+     }
+  }
+`({
+  first: 10,
+});
+
+```
+
 ### Node.js Encryption/Decryption
 ```typescript
 import { Encrypt } from './Encrypt';
