@@ -2,7 +2,7 @@ export const gql = createTemplateFunction((query) => {
 	let variables;
 	const request = (): Promise<GqlTypes.Query> =>
 		fetch(
-			'/graphql', 
+			'https://api.thegraph.com/subgraphs/name/1inch-exchange/one-inch-v2',
 			{
 				method: 'POST',
 				headers: {
@@ -10,7 +10,7 @@ export const gql = createTemplateFunction((query) => {
 					Accept: 'application/json',
 				},
 				body: JSON.stringify({
-					query, 
+					query,
 					...(variables ? { variables } : {}),
 				}),
 			}
