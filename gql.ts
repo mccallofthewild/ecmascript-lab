@@ -2,7 +2,7 @@ export const gql = createTemplateFunction((query) => {
 	let variables;
 	const request = (): Promise<GqlTypes.Query> =>
 		fetch(
-			'/graphql',
+			'/graphql', 
 			{
 				method: 'POST',
 				headers: {
