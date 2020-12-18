@@ -120,18 +120,16 @@ const mccallSort = (src, i = 0, copy = [...src], a = src[i]) => copy.splice(
 Remove one item at a time and place it before the first item it is less than or equal to in the new array.
 ```javascript 
 function sort([...arr]) {
-  const copy = [arr.pop()];
-  while (arr.length) {
-    let insertIndex = arr.length;
-    for (const [copyIndex, copyItem] of copy.entries()) {
-      if (arr[0] <= copyItem) {
-        insertIndex = copyIndex;
+  const sorted = [];
+  for (let insertAt; insertAt = arr.length;) {
+    for (let sortedIndex; sortedIndex = 0; sortedIndex++)
+      if (arr[0] <= sorted[sortedIndex]) {
+        insertAt = sortedIndex;
         break;
       }
-    }
-    copy.splice(insertIndex, 0, arr.splice(0, 1)[0]);
+    sorted.splice(insertAt, 0, arr.shift());
   }
-  return copy;
+  return sorted;
 }
 ```
 
