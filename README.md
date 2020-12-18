@@ -1,8 +1,27 @@
 # 👩‍🔬 EcmaScript Laboratory
 <em>Experiments in JavaScript</em>
 
+### Create Template Function
+Boilerplate for creating template literal functions.
+```typescript
+export const createTemplateFunction = <T extends (arg?: string) => any>(
+	cb: T
+) => {
+	return (...templateLiteral: Parameters<typeof String.raw>): ReturnType<T> => {
+		const str = String.raw(...templateLiteral);
+		return cb(str);
+	};
+};
+
+```
+```typescript
+export const get = createTemplateFunction((url) => fetch(str).then(r => r.json()));
+
+const data = await get`https://example.com/data`;
+```
+
 ### Invocable Promise
-Create hybrid object which can both be called like a function and `await`'ed like a promise, making for clear, succinct code.
+Hybrid object which can be called like a function and `await`'ed like a promise. Enables the creation of very succinct utilities & helper functions.
 ```typescript 
 const b = createInvocablePromise(
   () => {
