@@ -2,7 +2,7 @@ export const gql = createTemplateFunction((query) => {
 	let variables;
 	const request = (): Promise<GqlTypes.Query> =>
 		fetch(
-			'https://api.thegraph.com/subgraphs/name/1inch-exchange/one-inch-v2',
+			'/graphql',
 			{
 				method: 'POST',
 				headers: {
