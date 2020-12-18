@@ -10,7 +10,7 @@ export const gql = createTemplateFunction((query) => {
 					Accept: 'application/json',
 				},
 				body: JSON.stringify({
-					query,
+					query, 
 					...(variables ? { variables } : {}),
 				}),
 			}
