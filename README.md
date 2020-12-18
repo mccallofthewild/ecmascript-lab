@@ -2,6 +2,7 @@
 <em>Experiments in JavaScript</em>
 
 ### Invocable Promise
+Create hybrid object which can both be called like a function and `await`'ed like a promise, making for clear, succinct code.
 ```typescript 
 const b = createInvocablePromise(
   () => {
@@ -20,7 +21,7 @@ b();
 > Function logging.
 // 2 seconds later
 > Resolver logging.
-
+*/
 ```
 
 ### Template Literal GraphQL Client
