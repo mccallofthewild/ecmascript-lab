@@ -2,8 +2,11 @@
 <em>Experiments in JavaScript</em>
 
 ### React Debounce State Hook
+Debounce wrapper for `React#useState` that delays state updates by `delay` seconds
+
 ```typescript
 import { SetStateAction, useState } from 'react';
+
 export const useDebounce = <T>(initialState: T | (() => T), delay: number) => {
   const [inDebounce, setInDebounce] = useState<ReturnType<typeof setTimeout>>();
   const [value, setValue] = useState<T>(initialState);
@@ -15,6 +18,14 @@ export const useDebounce = <T>(initialState: T | (() => T), delay: number) => {
   return [value, setter] as const;
 };
 
+```
+```typescript
+export const CreditCardInput = () => {
+  const [cardNumber, setCardNumber] = useDebounce<string | null>(null, 2000);
+  // effect that depends on `cardNumber` will run 2 seconds after input stops.
+  useEffect(() => validateCardNumberOnServer(cardNumber), [cardNumber]);
+  return <input onInput={ e => setCardNumber(e.currentTarget.value) } />
+}
 ```
 
 ### Create Template Function
