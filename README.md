@@ -1,16 +1,32 @@
 # 👩‍🔬 EcmaScript Laboratory
 <em>Experiments in JavaScript</em>
 
+### React Debounce State Hook
+```typescript
+import { SetStateAction, useState } from 'react';
+export const useDebounce = <T>(initialState: T | (() => T), delay: number) => {
+  const [inDebounce, setInDebounce] = useState<ReturnType<typeof setTimeout>>();
+  const [value, setValue] = useState<T>(initialState);
+  const setter = (val: SetStateAction<T>) => {
+    clearTimeout(inDebounce);
+    const timeout = setTimeout(() => setValue(val), delay);
+    setInDebounce(timeout);
+  };
+  return [value, setter] as const;
+};
+
+```
+
 ### Create Template Function
 Boilerplate for creating template literal functions.
 ```typescript
 export const createTemplateFunction = <T extends (arg?: string) => any>(
-	cb: T
+  cb: T
 ) => {
-	return (...templateLiteral: Parameters<typeof String.raw>): ReturnType<T> => {
-		const str = String.raw(...templateLiteral);
-		return cb(str);
-	};
+  return (...templateLiteral: Parameters<typeof String.raw>): ReturnType<T> => {
+    const str = String.raw(...templateLiteral);
+    return cb(str);
+  };
 };
 
 ```
